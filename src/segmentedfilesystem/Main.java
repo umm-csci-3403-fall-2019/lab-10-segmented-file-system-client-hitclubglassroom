@@ -20,6 +20,16 @@ public class Main {
             buf = new byte[1028];
             packet = new DatagramPacket(buf, buf.length);
             socket.receive(packet);
+            Packet myPacket = makePacket(packet);
+        }
+    }
+
+    public static Packet makePacket(DatagramPacket packet) {
+        int status = packet.getData()[0];
+        if (status%2 == 0) {
+            return new HeaderPacket(packet);
+        } else {
+            return new DataPacket(packet);
         }
     }
 
