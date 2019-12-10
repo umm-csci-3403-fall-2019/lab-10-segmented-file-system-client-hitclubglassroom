@@ -6,6 +6,7 @@ public class Lunchbox {
     private HeaderPacket header;
     private ArrayList<DataPacket> data;
     private boolean hasLast;
+    private boolean hasHeader = false;
     private int fileSize;
     private int fileID;
 
@@ -16,13 +17,14 @@ public class Lunchbox {
     public void addLunch(Packet packet) {
         if (packet.getStatus()%2 == 0) {
             addLunchHeader((HeaderPacket) packet);
+            hasHeader = true;
         } else {
             addLunchData((DataPacket) packet);
         }
     }
 
     public void addLunchHeader(HeaderPacket headerPacket) {
-        this.header = (HeaderPacket) headerPacket;
+        this.header = headerPacket;
     }
 
     public void addLunchData(DataPacket dataPacket) {
@@ -36,4 +38,20 @@ public class Lunchbox {
     public int getFileID() {
         return fileID;
     }
+
+    public ArrayList<DataPacket> getData() {
+        return data;
+    }
+
+    public boolean isPacked() {
+        if (hasLast && hasHeader) {
+            return fileSize == data.size();
+        } else {
+            return false;
+        }
+    }
+
+    /*public void printPacketNumbers() {
+
+    }*/
 }

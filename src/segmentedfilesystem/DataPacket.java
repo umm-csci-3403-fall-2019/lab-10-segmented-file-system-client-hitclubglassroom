@@ -4,7 +4,9 @@ import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.util.Arrays;
 
-public class DataPacket extends Packet {
+import static java.lang.Integer.compare;
+
+public class DataPacket extends Packet implements Comparable<DataPacket> {
     private int packetNumber;
     private byte[] data;
     private boolean isLast;
@@ -21,6 +23,11 @@ public class DataPacket extends Packet {
 
         int dataLength = packet.getLength() - 4;
         data = Arrays.copyOfRange(packet.getData(), 4, dataLength);
+    }
+
+    @Override
+    public int compareTo(DataPacket packet) {
+        return compare(packetNumber, packet.getPacketNumber());
     }
 
     public boolean isLast() {
