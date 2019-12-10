@@ -6,7 +6,7 @@ import java.util.Collections;
 public class Cooler {
     private ArrayList<Lunchbox> lunchboxes;
 
-    private void addPacket(Packet packet) {
+    public void addPacket(Packet packet) {
         int fileID = packet.getFileID();
         if (lunchboxes.size() == 0) {
             Lunchbox firstBox = new Lunchbox(fileID);
@@ -35,7 +35,7 @@ public class Cooler {
         }
     }
 
-    private boolean readyToSort() {
+    public boolean readyToSort() {
         boolean readyToSort = false;
         if (lunchboxes.size() == 3) {
             readyToSort = true;

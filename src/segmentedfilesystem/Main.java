@@ -16,11 +16,17 @@ public class Main {
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
         socket.send(packet);
 
+        Cooler yeti = new Cooler();
+
         while (true) {
             buf = new byte[1028];
             packet = new DatagramPacket(buf, buf.length);
             socket.receive(packet);
             Packet myPacket = makePacket(packet);
+            yeti.addPacket(myPacket);
+            if (yeti.readyToSort()) {
+                break;
+            }
         }
     }
 
