@@ -12,7 +12,7 @@ public abstract class Packet {
         this.status = status;
     }
 
-    public int getfileID() {
+    public int getFileID() {
         return fileID;
     }
 
