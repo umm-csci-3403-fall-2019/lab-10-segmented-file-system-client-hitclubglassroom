@@ -21,7 +21,7 @@ public class DataPacket extends Packet implements Comparable<DataPacket> {
 
         this.isLast = getStatus()%4 == 3;
 
-        int dataLength = packet.getLength() - 4;
+        int dataLength = packet.getLength();
         data = Arrays.copyOfRange(packet.getData(), 4, dataLength);
     }
 

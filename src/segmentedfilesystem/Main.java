@@ -28,6 +28,7 @@ public class Main {
                 break;
             }
         }
+        yeti.sortAndWrite();
     }
 
     public static Packet makePacket(DatagramPacket packet) {

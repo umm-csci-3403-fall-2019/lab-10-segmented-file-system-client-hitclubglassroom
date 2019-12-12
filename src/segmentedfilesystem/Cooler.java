@@ -1,10 +1,11 @@
 package segmentedfilesystem;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Cooler {
-    private ArrayList<Lunchbox> lunchboxes;
+    private ArrayList<Lunchbox> lunchboxes = new ArrayList<>();
 
     public void addPacket(Packet packet) {
         int fileID = packet.getFileID();
@@ -46,11 +47,35 @@ public class Cooler {
         return readyToSort;
     }
 
+    public void sortAndWrite() throws IOException {
+        sortLunches();
+        writeLunches();
+    }
+
     private void sortLunches() {
         for (int i = 0; i < 3; i++) {
             Lunchbox boxToSort = lunchboxes.get(i);
             ArrayList<DataPacket> dataToSort = boxToSort.getData();
             Collections.sort(dataToSort);
+//            boxToSort.sortDataPackets();
+        }
+    }
+
+    private void writeLunches() throws IOException {
+        for (int i = 0; i < 3; i++) {
+            Lunchbox box = lunchboxes.get(i);
+            String filename = box.getFilename();
+            File file = new File(filename);
+            FileOutputStream fos = new FileOutputStream(file);
+            ArrayList<DataPacket> dataPackets = box.getData();
+            BufferedOutputStream out = new BufferedOutputStream(fos);
+            for(int j = 0; j < dataPackets.size(); j++) {
+                DataPacket packet = dataPackets.get(j);
+                byte[] data = packet.getData();
+                out.write(data);
+            }
+            out.flush();
+            out.close();
         }
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Lunchbox {
     private HeaderPacket header;
-    private ArrayList<DataPacket> data;
+    private ArrayList<DataPacket> data = new ArrayList<>();
     private boolean hasLast;
     private boolean hasHeader = false;
     private int fileSize;
@@ -30,7 +30,7 @@ public class Lunchbox {
     public void addLunchData(DataPacket dataPacket) {
         if (dataPacket.isLast()) {
             this.hasLast = true;
-            this.fileSize = dataPacket.getPacketNumber();
+            this.fileSize = dataPacket.getPacketNumber() + 1;
         }
         data.add(dataPacket);
     }
@@ -51,7 +51,7 @@ public class Lunchbox {
         }
     }
 
-    /*public void printPacketNumbers() {
-
-    }*/
+    public String getFilename() {
+        return new String(header.getFilename());
+    }
 }
