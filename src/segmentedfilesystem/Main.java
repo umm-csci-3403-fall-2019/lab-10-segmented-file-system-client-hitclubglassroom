@@ -16,7 +16,7 @@ public class Main {
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
         socket.send(packet);
 
-        Cooler yeti = new Cooler();
+        Cooler yeti = new Cooler(3);
 
         while (true) {
             buf = new byte[1028];

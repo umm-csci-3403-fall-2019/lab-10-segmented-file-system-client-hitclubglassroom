@@ -6,6 +6,11 @@ import java.util.Collections;
 
 public class Cooler {
     private ArrayList<Lunchbox> lunchboxes = new ArrayList<>();
+    private int numLunches;
+
+    public Cooler(int numLunches) {
+        this.numLunches = numLunches;
+    }
 
     public void addPacket(Packet packet) {
         int fileID = packet.getFileID();
@@ -38,9 +43,9 @@ public class Cooler {
 
     public boolean readyToSort() {
         boolean readyToSort = false;
-        if (lunchboxes.size() == 3) {
+        if (lunchboxes.size() == numLunches) {
             readyToSort = true;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < numLunches; i++) {
                 readyToSort = readyToSort && lunchboxes.get(i).isPacked();
             }
         }
@@ -53,16 +58,15 @@ public class Cooler {
     }
 
     private void sortLunches() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < numLunches; i++) {
             Lunchbox boxToSort = lunchboxes.get(i);
             ArrayList<DataPacket> dataToSort = boxToSort.getData();
             Collections.sort(dataToSort);
-//            boxToSort.sortDataPackets();
         }
     }
 
     private void writeLunches() throws IOException {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < numLunches; i++) {
             Lunchbox box = lunchboxes.get(i);
             String filename = box.getFilename();
             File file = new File(filename);
@@ -77,5 +81,9 @@ public class Cooler {
             out.flush();
             out.close();
         }
+    }
+
+    public int lunchboxCount() {
+        return lunchboxes.size();
     }
 }

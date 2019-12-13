@@ -23,11 +23,11 @@ public class Lunchbox {
         }
     }
 
-    public void addLunchHeader(HeaderPacket headerPacket) {
+    private void addLunchHeader(HeaderPacket headerPacket) {
         this.header = headerPacket;
     }
 
-    public void addLunchData(DataPacket dataPacket) {
+    private void addLunchData(DataPacket dataPacket) {
         if (dataPacket.isLast()) {
             this.hasLast = true;
             this.fileSize = dataPacket.getPacketNumber() + 1;
